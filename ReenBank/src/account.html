@@ -251,7 +251,7 @@
       class="hidden fixed inset-0 bg-black/60 z-100 flex items-center justify-center p-4 backdrop-blur-sm"
     >
       <div
-        class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl transform transition-all"
+        class="bg-white rounded-2xl p-8 w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all"
       >
         <div class="flex justify-between items-center mb-6">
           <h3 id="modal-title" class="text-2xl font-bold text-gray-900">
@@ -275,10 +275,135 @@
           <input
             type="number"
             id="tx-amount"
+            min="0.01"
+            step="0.01"
             placeholder="0.00"
             class="w-full pl-10 pr-4 py-4 rounded-xl bg-gray-50 border border-gray-200 outline-none focus:ring-2 focus:ring-[#19B66B] text-xl font-bold text-gray-900"
           />
         </div>
+        <section
+          id="withdrawal-methods"
+          class="hidden mb-6"
+          aria-label="Withdrawal method"
+        >
+          <p class="text-sm font-semibold text-gray-800 mb-3">
+            Choose how to receive your withdrawal
+          </p>
+          <div class="grid grid-cols-2 gap-3">
+            <label
+              class="cursor-pointer rounded-xl border border-gray-200 p-3 has-[:checked]:border-[#19B66B] has-[:checked]:bg-[#F0FBF6]"
+            >
+              <input
+                type="radio"
+                name="withdrawal-method"
+                value="credit"
+                class="accent-[#19B66B]"
+                checked
+              />
+              <span class="ml-1 text-sm font-semibold text-gray-800"
+                >Credit Pay</span
+              >
+              <span class="block mt-1 text-xs text-gray-500"
+                >Receive as a credit payment</span
+              >
+            </label>
+            <label
+              class="cursor-pointer rounded-xl border border-gray-200 p-3 has-[:checked]:border-[#19B66B] has-[:checked]:bg-[#F0FBF6]"
+            >
+              <input
+                type="radio"
+                name="withdrawal-method"
+                value="direct"
+                class="accent-[#19B66B]"
+              />
+              <span class="ml-1 text-sm font-semibold text-gray-800"
+                >Direct Pay</span
+              >
+              <span class="block mt-1 text-xs text-gray-500"
+                >Pay directly to your card</span
+              >
+            </label>
+          </div>
+          <div
+            id="direct-pay-card"
+            class="hidden mt-4 space-y-3 rounded-xl border border-gray-200 p-4"
+          >
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-semibold text-gray-800">
+                Debit or credit card
+              </p>
+              <i
+                data-lucide="credit-card"
+                class="w-5 h-5 text-gray-500"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <label
+              class="block text-xs font-medium text-gray-600"
+              for="cardholder-name"
+              >Name on card</label
+            >
+            <input
+              id="cardholder-name"
+              type="text"
+              autocomplete="cc-name"
+              placeholder="As shown on card"
+              class="w-full px-3 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-[#19B66B]"
+            />
+            <label
+              class="block text-xs font-medium text-gray-600"
+              for="card-number"
+              >Card number</label
+            >
+            <input
+              id="card-number"
+              type="text"
+              inputmode="numeric"
+              autocomplete="cc-number"
+              placeholder="0000 0000 0000 0000"
+              maxlength="23"
+              class="w-full px-3 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-[#19B66B]"
+            />
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label
+                  class="block text-xs font-medium text-gray-600 mb-1"
+                  for="card-expiry"
+                  >Expiry date</label
+                >
+                <input
+                  id="card-expiry"
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="cc-exp"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                  class="w-full px-3 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-[#19B66B]"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-medium text-gray-600 mb-1"
+                  for="card-cvc"
+                  >Security code</label
+                >
+                <input
+                  id="card-cvc"
+                  type="password"
+                  inputmode="numeric"
+                  autocomplete="cc-csc"
+                  placeholder="CVV"
+                  maxlength="4"
+                  class="w-full px-3 py-2.5 rounded-lg border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-[#19B66B]"
+                />
+              </div>
+            </div>
+            <p class="text-xs text-gray-500">
+              Your card security code is used for validation only and is never
+              saved.
+            </p>
+          </div>
+        </section>
         <div class="flex gap-4">
           <button
             onclick="closeTxModal()"
